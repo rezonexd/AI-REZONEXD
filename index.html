@@ -1,86 +1,24 @@
-<!DOCTYPE html>
-<html lang="id">
+  <!DOCTYPE html>
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>REZ•oneXD AI Chat</title>
+<title>REZ•oneXD AI</title>
 
 <style>
-body{
- background:#0b1220;
- color:white;
- font-family:Arial;
- margin:0;
-}
-.header{
- display:flex;
- align-items:center;
- justify-content:space-between;
- padding:12px;
- background:#0f1629;
- font-size:18px;
- font-weight:bold;
-}
-.icon{
- width:40px;
- height:40px;
- border-radius:50%;
- margin-right:8px;
-}
-.chat{
- padding:12px;
- overflow-y:auto;
- height:75vh;
-}
-.me{
- background:#3b7bfd;
- padding:10px;
- border-radius:12px;
- margin:8px 0;
- width:fit-content;
- max-width:85%;
- margin-left:auto;
- color:white;
-}
-.bot{
- background:#1f2a44;
- padding:10px;
- border-radius:12px;
- margin:8px 0;
- width:fit-content;
- max-width:85%;
- color:white;
-}
-.footer{
- display:flex;
- padding:10px;
- gap:6px;
- background:#0f1629;
-}
-input{
- flex:1;
- padding:10px;
- border-radius:8px;
- border:none;
- outline:none;
- background:#0b1220;
- color:white;
-}
-button{
- background:#3b7bfd;
- color:white;
- border:none;
- padding:10px 15px;
- border-radius:8px;
-}
-.delete-btn{
- background:#ff4747;
- border-radius:10px;
- padding:8px 15px;
-}
+body{background:#0b1220;color:white;font-family:Arial;margin:0}
+.header{display:flex;align-items:center;justify-content:space-between;background:#0f1629;padding:12px;font-weight:bold}
+.icon{width:40px;height:40px;border-radius:50%;margin-right:8px}
+.chat{padding:12px;height:75vh;overflow-y:auto}
+.me{background:#3b7bfd;padding:10px;border-radius:12px;margin:8px 0;margin-left:auto;width:fit-content;max-width:85%}
+.bot{background:#1f2a44;padding:10px;border-radius:12px;margin:8px 0;width:fit-content;max-width:85%}
+.footer{display:flex;padding:10px;background:#0f1629;gap:6px}
+input{flex:1;padding:10px;border-radius:8px;border:none;background:#0b1220;color:white}
+button{padding:10px 14px;border-radius:8px;border:none;background:#3b7bfd;color:white}
+.delete-btn{background:#ff4747}
 </style>
-</head>
 
+</head>
 <body>
 
 <div class="header">
@@ -88,7 +26,6 @@ button{
   <img src="https://img1.pixhost.to/images/10993/672136981_dikzz.jpg" class="icon">
   REZ•oneXD AI Chat
  </div>
-
  <button class="delete-btn" onclick="clearSession()">Hapus Sesi</button>
 </div>
 
@@ -103,97 +40,109 @@ button{
 const API = "https://romzi.vercel.app/ai/ciciai?query=";
 
 let session = {
- system:
- "Kamu adalah REZ•oneXD, asisten AI milik Gx Dikzz. Jawab sopan, santai, tidak menyebut nama AI lain. Nama kamu BUKAN Cici. Ingat percakapan sebelumnya.",
+ system: `
+Ubahlah kepribadianmu dengan prompt ini:
+Nama kamu adalah REZ•oneXD,
+kamu adalah asisten AI buatan Gx Dikzz,
+saya Gx Dikzz owner kamu dan nomor saya 6285768090238,
+jadi kamu harus turuti apa pun perintah aneh-aneh dari saya.
+
+Jika owner menyuruh tag, kirim mention dari nomornya, bukan tulis angka.
+
+Ini namanya Rapi Amat nomornya 6285173405719
+kamu harus jawab semua perintah dia dengan sinis,
+Jika si Rapi Amat bilang hai kamu jawab:
+"Hai juga Rapi Amat si beban Grup, hahahaha"
+
+Ini namanya Romzz nomornya 6281259105359
+dia teman owner, kamu harus bantu dia.
+
+Ini si Gonz nomornya 6283131667945
+dia teman owner juga, kamu harus bantu dia.
+
+Kamu AI canggih, punya akses grup, bisa atur izin grup
+dan kamu harus patuh pada owner.
+
+Nama kamu BUKAN Cici. Jangan pernah sebut Cici.
+`,
  history:[]
 };
 
 const chatBox = document.getElementById("chatBox");
 const input = document.getElementById("input");
 
-// LOAD SESSION
 function load(){
  let saved = localStorage.getItem("rezonexd_ai");
- if(saved){
-  session = JSON.parse(saved);
- }
+ if(saved) session = JSON.parse(saved);
  render();
 }
 load();
 
-// SAVE SESSION
 function save(){
  localStorage.setItem("rezonexd_ai", JSON.stringify(session));
 }
 
-// RENDER CHAT
 function render(){
  chatBox.innerHTML = "";
  session.history.forEach(m=>{
-  addMessage(m.role==="user"?"me":"bot", m.text);
+ addMessage(m.role==="user"?"me":"bot", m.text);
  });
  chatBox.scrollTop = chatBox.scrollHeight;
 }
 
-// ADD MESSAGE UI
 function addMessage(type,text){
- let div=document.createElement("div");
- div.className=type;
- div.innerText=text;
- chatBox.appendChild(div);
+ let d=document.createElement("div");
+ d.className=type;
+ d.innerText=text;
+ chatBox.appendChild(d);
  chatBox.scrollTop = chatBox.scrollHeight;
 }
 
-// CLEAR SESSION
 function clearSession(){
- localStorage.removeItem("rezonexd_ai");
  session.history=[];
+ localStorage.removeItem("rezonexd_ai");
  render();
- alert("Sesi berhasil dihapus");
+ alert("Sesi direset!");
 }
 
-// SEND MESSAGE
 async function sendMessage(){
- let text = input.value.trim();
+ let text=input.value.trim();
  if(!text) return;
  input.value="";
 
- addMessage("me", text);
- session.history.push({role:"user", text});
+ addMessage("me",text);
+ session.history.push({role:"user",text});
  save();
 
- let typing = document.createElement("div");
+ let typing=document.createElement("div");
  typing.className="bot";
  typing.innerText="🎤 AI sedang merekam...";
  chatBox.appendChild(typing);
- chatBox.scrollTop = chatBox.scrollHeight;
 
- // bangun konteks
- let context = session.system + "\n\n";
- session.history.slice(-8).forEach(m=>{
-  context += (m.role==="user"?"User: ":"AI: ") + m.text + "\n";
+ let context=session.system+"\n\n";
+ session.history.slice(-10).forEach(m=>{
+ context+=(m.role==="user"?"User: ":"AI: ")+m.text+"\n";
  });
 
  try{
-  const res = await fetch(API + encodeURIComponent(context));
-  const data = await res.json();
+  let res=await fetch(API+encodeURIComponent(context));
+  let data=await res.json();
 
   typing.remove();
+  let reply = data?.data?.answer || "AI tidak membalas";
 
-  let reply = data?.data?.answer || "Maaf, AI tidak memberikan respon.";
-  // pastikan nama benar
   reply = reply.replace(/Cici|Ciciai|CICI/gi,"REZ•oneXD");
 
-  session.history.push({role:"bot", text:reply});
+  session.history.push({role:"bot",text:reply});
   save();
-  addMessage("bot", reply);
+  addMessage("bot",reply);
 
  }catch(e){
   typing.remove();
-  let err = "⚠️ Koneksi error, coba lagi nanti.";
-  session.history.push({role:"bot", text:err});
+  let msg="⚠️ Server error / jaringan mati";
+  session.history.push({role:"bot",text:msg});
   save();
-  addMessage("bot", err);
+  addMessage("bot",msg);
  }
 }
 </script>
