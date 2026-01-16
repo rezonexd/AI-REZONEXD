@@ -132,7 +132,14 @@ async function sendMessage(){
   addMessage("bot",msg);
  }
 }
+
+ 
+if(!localStorage.getItem("rezonexd_session")){
+ location.href="./auth/login.html";
+  }
+  
 </script>
+
 
 </body>
 </html>
