@@ -140,7 +140,10 @@ async function sendMessage(){
 if(!localStorage.getItem("rezonexd_session")){
  location.href="./auth/login.html";
   }
-  
+  function logout(){
+ localStorage.removeItem("rezonexd_session");
+ location.href="./auth/login.html";
+ }
 </script>
 
 
