@@ -16,26 +16,28 @@ body{background:#0b1220;color:white;font-family:Arial;margin:0}
 input{flex:1;padding:10px;border-radius:8px;border:none;background:#0b1220;color:white}
 button{padding:10px 14px;border-radius:8px;border:none;background:#3b7bfd;color:white}
 .delete-btn{background:#ff4747}
-/* CHAT BG TERANG - DESKTOP */
+ 
+html, body{
+ height:100%;
+}
+
+/* DESKTOP */
 @media (min-width: 768px){
  body{
-  background:
-   linear-gradient(180deg, rgba(255,255,255,.85), rgba(233,239,255,.9)),
-   url("https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1920");
-  background-size:cover;
-  background-position:center;
-  background-attachment:fixed;
+  min-height:100vh;
+  background-color:#f2f3f5; /* abu netral */
+  background-image:url("https://www.transparenttextures.com/patterns/diagonal-noise.png");
+  background-repeat:repeat;
  }
 }
 
-/* CHAT BG TERANG - MOBILE */
+/* MOBILE */
 @media (max-width: 767px){
  body{
-  background:
-   linear-gradient(180deg, rgba(255,255,255,.95), rgba(242,245,255,.95)),
-   url("https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200");
-  background-size:cover;
-  background-position:center;
+  min-height:100vh;
+  background-color:#f5f6f8; /* sedikit lebih terang */
+  background-image:url("https://www.transparenttextures.com/patterns/dot-grid.png");
+  background-repeat:repeat;
  }
 }
 </style>
